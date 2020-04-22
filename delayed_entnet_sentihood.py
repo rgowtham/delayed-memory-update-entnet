@@ -212,7 +212,7 @@ class Delayed_EntNet_Sentihood(object):
         session=None,
         name='Delayed_EntNet_Sentihood'):
 
-        print name
+        print(name)
 
         self._batch_size = batch_size
         self._vocab_size = vocab_size

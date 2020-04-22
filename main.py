@@ -15,7 +15,8 @@ import numpy as np
 import sys
 import random
 import logging
-import cPickle as pickle
+# import cPickle as pickle
+import pickle
 
 import pprint
 pp = pprint.PrettyPrinter()
@@ -24,7 +25,7 @@ tf.flags.DEFINE_float("learning_rate", 0.05, "Learning rate for the optimizer.")
 tf.flags.DEFINE_float("max_grad_norm", 5.0, "Clip gradients to this norm.")
 tf.flags.DEFINE_integer("evaluation_interval", 1, "Evaluate and print results every x epochs")
 tf.flags.DEFINE_integer("batch_size", 128, "Batch size for training.")
-tf.flags.DEFINE_integer("epochs", 800, "Number of epochs to train for.")
+tf.flags.DEFINE_integer("epochs", 2, "Number of epochs to train for.")
 tf.flags.DEFINE_integer("embedding_size", 20, "Embedding size for embedding matrices.")
 tf.flags.DEFINE_integer("sentence_len", 50, "Maximum len of sentence.")
 tf.flags.DEFINE_string("task", "Sentihood", "Sentihood")
@@ -88,11 +89,11 @@ if __name__ == "__main__":
 
         data = train + val + test
 
-        max_sentence_len = max(map(lambda x: len(x[1]), data))
+        max_sentence_len = max(map(lambda x: len(list(x[1])), data))
         max_sentence_len = min(FLAGS.sentence_len, max_sentence_len)
         logger.info('Max sentence len: %d' % max_sentence_len)
         max_target_len = 1 # should be one
-        max_aspect_len = max(map(lambda x: len(x), [d[3] for d in data]))
+        max_aspect_len = max(map(lambda x: len(list(x)), [d[3] for d in data]))
         assert max_aspect_len == 2
         logger.info('Max target size: %d' % max_target_len)
         logger.info('Max aspect size: %d' % max_aspect_len)
