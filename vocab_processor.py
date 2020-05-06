@@ -72,7 +72,7 @@ class EmbeddingVocabulary(tf.contrib.learn.preprocessing.CategoricalVocabulary):
                     self._embeddings = np.zeros((nb_words + 2, nb_dim), dtype=np.float32)
                     continue
                 word = attrs[0]
-                emb = map(float, attrs[1:])
+                emb = list(map(float, attrs[1:]))
                 self._mapping[word] = len(self._mapping) if not self._support_reverse else len(self._reverse_mapping)
                 self._embeddings[self._mapping[word], :] = emb
                 if self._support_reverse:
